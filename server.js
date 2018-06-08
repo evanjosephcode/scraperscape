@@ -84,62 +84,9 @@ app.get("/scrape", function (req, res) {
           // If an error occurred, send it to the client
           console.error(err);
         });
-      // Save the text and href of each link enclosed in the current element
-
-      // var summary = $(element).find(".blurb").text();
-      // var link = $(element).find(".headline a").attr("href");
-      // var headline = $(element).find(".headline a").text();
-
-      // If this found element had both link & headline
-      // if (link && headline && summary) {
-      //   // Insert the data in the scrapedData db
-      //   db.Article.create({
-      //     link: link,
-      //     headline: headline,
-      //     summary: summary
-      //   }).$("article h2").each(function (i, element) {
-
-      //     // Create a new Article using the `result` object built from scraping
-      //     db.Article.create(result)
-      //       .then(function (dbArticle) {
-      //         // View the added result in the console
-      //         console.log(dbArticle);
-      //       })
-      //       .catch(function (err) {
-      //         // If an error occurred, send it to the client
-      //         return res.json(err);
-      //       });
-      //   });
-
-      //   console.log({
-      //     summary,
-      //     link,
-      //     headline
-      //   });
-
-      // }
-      // else if (link && headline && summary == null) {
-      //   // Insert the data in the scrapedData db
-      //   db.Article.create({
-      //       link: link,
-      //       headline: headline,
-      //       summary: "Summary is not avaialble for this article"
-      //     }),
-      //     function (err, inserted) {
-      //       if (err) {
-      //         // Log the error if one is encountered during the query
-      //         console.log(err);
-      //       } else {
-      //         // Otherwise, log the inserted data
-      //         console.log(inserted);
-      //       }
-      //     };
-      // };
+      
     });
     res.json(foo);
-
-    // Send a "Scrape Complete" message to the browser
-    // res.send("Scrape Complete");
   });
 });
 
