@@ -55,24 +55,34 @@ app.get("/scrape", function (req, res) {
   request("https://www.washingtonpost.com/", function (error, response, html) {
     // Load the html body from request into cheerio
     var $ = cheerio.load(html);
+    var foo = {};
     // For each element with a "title" class
     $(".pb-feature").each(function (i, element) {
       var result = {};
+      // var foo = {};
 
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this).find(".blurb").text();
+      if (!$(this).find(".blurb").text() || !$(this).find(".headline a").attr("href") || !$(this).find(".headline a").text()) {
+        return;
+      }
+
+      result.summary = $(this).find(".blurb").text();
       result.link = $(this).find(".headline a").attr("href");
       result.headline = $(this).find(".headline a").text();
+
+      // console.log(JSON.stringify(result, null, 2));
+
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function (dbArticle) {
-          // View the added result in the console
           console.log(dbArticle);
+          // View the added result in the console
+          foo[i] = dbArticle;
         })
         .catch(function (err) {
           // If an error occurred, send it to the client
-          return res.json(err);
+          console.error(err);
         });
       // Save the text and href of each link enclosed in the current element
 
@@ -126,9 +136,10 @@ app.get("/scrape", function (req, res) {
       //     };
       // };
     });
+    res.json(foo);
 
     // Send a "Scrape Complete" message to the browser
-    res.send("Scrape Complete");
+    // res.send("Scrape Complete");
   });
 });
 
