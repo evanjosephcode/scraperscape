@@ -15,7 +15,6 @@ module.exports = function (app) {
             // For each element with a "title" class
             $(".pb-feature").each(function (i, element) {
                 var result = {};
-                // var foo = {};
 
                 // Add the text and href of every link, and save them as properties of the result object
                 if (!$(this).find(".blurb").text() || !$(this).find(".headline a").attr("href") || !$(this).find(".headline a").text()) {
@@ -25,8 +24,6 @@ module.exports = function (app) {
                 result.summary = $(this).find(".blurb").text();
                 result.link = $(this).find(".headline a").attr("href");
                 result.headline = $(this).find(".headline a").text();
-
-                // console.log(JSON.stringify(result, null, 2));
 
 
                 // Create a new Article using the `result` object built from scraping
