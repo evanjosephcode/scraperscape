@@ -93,8 +93,8 @@ app.get("/scrape", function (req, res) {
 
 
 app.get("/", (req, res) => {
-  res.render("index");
-  // res.send("hello world");
+  // res.render("index");
+  res.send("hello world");
 });
 
 app.get("/api/articles", function (req, res) {
