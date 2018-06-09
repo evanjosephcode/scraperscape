@@ -7,7 +7,6 @@ var cheerio = require("cheerio");
 var request = require("request");
 var logger = require("morgan");
 
-// Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.Promise = Promise;
@@ -22,9 +21,9 @@ app.use(logger("dev"));
 // app.engine('handlebars', exphbs({
 //   extname: '.handlebars',
 //   defaultLayout: 'main',
-//   partialsDir: path.join(__dirname, '/views/partials'),
 //   layoutsDir: path.join(__dirname, '/views/layouts')
 // }));
+
 // app.set('view engine', 'handlebars');
 // app.set('views', path.join(__dirname, '/views'));
 
@@ -86,20 +85,27 @@ app.get("/scrape", function (req, res) {
         });
       
     });
-    res.json(foo);
+    res.send("Scrape complete");
+    res.redirect
+    // res.json(foo);
   });
 });
 
-app.get("/all", function (req, res) {
-  // Find all results from the scrapedData collection in the db
-  db.Article.find({}, function (error, found) {
-    // Throw any errors to the console
-    if (error) {
-      console.log(error);
-    }
-    // If there are no errors, send the data to the browser as json
-    else {
-      res.json(found);
-    }
-  });
+
+app.get("/", (req, res) => {
+  // res.render("index");
+  res.send("hello world");
+});
+
+app.get("/api/articles", function (req, res) {
+  // Grab every document in the Article collection
+  db.Article.find({})
+      .then(function (dbArticle) {
+          // If we were able to successfully find Article, send them back to the client
+          res.json(dbArticle);
+      })
+      .catch(function (err) {
+          // If an error occurred, send it to the client
+          res.json(err);
+      });
 });
