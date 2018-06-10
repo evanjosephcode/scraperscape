@@ -1,11 +1,12 @@
 var express = require("express");
-var expresshb = require("express-handlebars");
+var exphbs = require("express-handlebars");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 
 var cheerio = require("cheerio");
 var request = require("request");
 var logger = require("morgan");
+var path = require("path");
 
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
@@ -18,14 +19,14 @@ var app = express();
 app.use(logger("dev"));
 
 // hb config
-// app.engine('handlebars', exphbs({
-//   extname: '.handlebars',
-//   defaultLayout: 'main',
-//   layoutsDir: path.join(__dirname, '/views/layouts')
-// }));
+app.engine('handlebars', exphbs({
+  extname: '.handlebars',
+  defaultLayout: 'main',
+  layoutsDir: path.join(__dirname, '/views/layouts')
+}));
 
-// app.set('view engine', 'handlebars');
-// app.set('views', path.join(__dirname, '/views'));
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, '/views'));
 
 // Use body-parser for handling form submissions
 app.use(bodyParser.urlencoded({
