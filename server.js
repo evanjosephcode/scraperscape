@@ -11,7 +11,7 @@ var path = require("path");
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/mongoHeadlines");
+mongoose.connect(MONGODB_URI);
 
 
 var PORT = 3000;
